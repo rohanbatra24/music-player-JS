@@ -99,8 +99,8 @@ const updateProgressBar = (e) => {
 
     // update progress bar width
 
-    const progressPercent = currentTime / duration / duration;
-    progress.style.width = progressPercent * 10000 + "%";
+    const progressPercent = (currentTime / duration) * 100;
+    progress.style.width = progressPercent + "%";
   }
 };
 
