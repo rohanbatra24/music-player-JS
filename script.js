@@ -71,22 +71,20 @@ let songIndex = 0;
 
 const nextSong = (params) => {
   loadSong(songs[songIndex++]);
-  playSong();
-
-  console.log(`songIndex`, songIndex);
-  console.log(`songs length`, songs.length);
-
-  console.log(songIndex >= songs.length);
 
   if (songIndex >= songs.length) {
-    console.log("in if");
     nextBtn.setAttribute("disabled", true);
-    songIndex--;
+    songIndex = 0;
   }
+  playSong();
 };
 
 const prevSong = (params) => {
   loadSong(songs[songIndex--]);
+  if (songIndex <= 0) {
+    nextBtn.setAttribute("disabled", true);
+    songIndex = songs.length - 1;
+  }
   playSong();
 };
 
