@@ -1,7 +1,9 @@
 const image = document.querySelector("img");
-const title = document.querySelectorAll("title");
-const artist = document.querySelectorAll("artist");
+const title = document.getElementById("title");
+const artist = document.getElementById("artist");
 const music = document.querySelector("audio");
+const progressContainer = document.getElementById("progress-container");
+const progress = document.getElementById("progress");
 const prevBtn = document.getElementById("prev");
 const playBtn = document.getElementById("play");
 const nextBtn = document.getElementById("next");
@@ -70,28 +72,39 @@ const loadSong = (song) => {
 let songIndex = 0;
 
 const nextSong = (params) => {
-  loadSong(songs[songIndex++]);
-
   if (songIndex >= songs.length) {
     nextBtn.setAttribute("disabled", true);
     songIndex = 0;
   }
+  loadSong(songs[songIndex++]);
   playSong();
 };
 
 const prevSong = (params) => {
-  loadSong(songs[songIndex--]);
   if (songIndex <= 0) {
     nextBtn.setAttribute("disabled", true);
     songIndex = songs.length - 1;
   }
+  loadSong(songs[songIndex--]);
   playSong();
 };
 
 // On load - select first song
 loadSong(songs[songIndex]);
 
-// Event listeners
+// Update progress bar and time
+const updateProgressBar = (e) => {
+  if (isPlaying) {
+    const { duration, currentTime } = e.srcElement;
 
+    // update progress bar width
+
+    const progressPercent = currentTime / duration / duration;
+    progress.style.width = progressPercent * 10000 + "%";
+  }
+};
+
+// Event listeners
 prevBtn.addEventListener("click", prevSong);
 nextBtn.addEventListener("click", nextSong);
+music.addEventListener("timeupdate", updateProgressBar);
