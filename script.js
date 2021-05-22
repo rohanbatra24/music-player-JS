@@ -123,7 +123,11 @@ const updateProgressBar = (e) => {
   }
 };
 
+// set progress bar
+const setProgressBar = (e) => {};
+
 // Event listeners
 prevBtn.addEventListener("click", prevSong);
 nextBtn.addEventListener("click", nextSong);
 music.addEventListener("timeupdate", updateProgressBar);
+progressContainer.addEventListener("click", setProgressBar);
